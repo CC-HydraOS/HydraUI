@@ -1,5 +1,8 @@
 ---@diagnostic disable undefined-global
 
+---@class HydraUI
+ui = {}
+
 local _require = require
 local container = ...
 local function require(modname)
@@ -36,6 +39,13 @@ local function draw()
    for k, v in pairs(windows) do
       v:draw(palette)
    end
+end
+
+ui.windows = windows
+---Adds a window to the canvas
+---@param window HydraUI.WindowComponent.Window
+function ui.addWindow(window)
+   windows[#windows + 1] = window
 end
 
 draw()
