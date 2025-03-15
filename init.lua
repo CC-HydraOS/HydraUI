@@ -3,7 +3,7 @@
 local term = kernel.screen.get(0)
 
 ---@class HydraUI
-local ui = {}
+ui = {}
 
 local palette = require("HydraUI.palette")
 
