@@ -106,6 +106,81 @@ local function drawTabs(event, button, x, y)
 end
 
 -- Testing stuff
+windows[1]:addComponent(require("windowComponents.text").new("BASIC COMPONENTS EXIST NOW!!!", 14, 1, 1))
+windows[2]:addComponent(require("windowComponents.text").new("Clicker: ", 8, 1, 1))
+windows[2]:addComponent(require("windowComponents.button").new("000", 3, 10, 1, function(self)
+   self.text = string.format("%03i", tonumber(self.text) + 1)
+end))
+
+local prevEvents = {}
+ui.addTab("Events", {
+   draw = function()
+      term:setBackgroundColor(0x8000)
+      term:setTextColor(0x1)
+      term:clear()
+      for i, v in ipairs(prevEvents) do
+         term:setCursorPos(1, 1 + i)
+         local str = table.concat(v, " ")
+         term:write(str, true)
+      end
+   end,
+   event = function(self, ...)
+      local prevEvent = table.pack(...)
+
+      for i = 1, prevEvent.n do
+         prevEvent[i] = tostring(prevEvent[i] ~= nil and prevEvent[i] or "")
+      end
+
+      if #prevEvents == term:getHeight() then
+         table.remove(prevEvents, 1)
+      end
+
+      prevEvents[#prevEvents + 1] = prevEvent
+   end
+})
+-- End testing stuff
+
+draw()
+drawTabs()
+while true do
+   local event, val1, val2, val3, val4, val5 = os.pullEvent()
+
+   if tab == "HydraUI" then
+      for k, v in pairs(windows) do
+         local change = v:event(event, val1, val2, val3, val4, val5)
+
+         if change == "DELETE" then
+            windows[k] = nil
+         end
+      end
+   
+      draw()
+   elseif tabs[tab] then
+      tabs[tab]:event(event, val1, val2, val3, val4, val5)
+      tabs[tab]:draw()
+   end
+
+   if event == "mouse_click" and button == 1 and y == 1 then
+      for _, v in pairs(positions) do
+         if x >= v[1] and x <= v[2] then
+            if v.type == "tab" then
+               tab = v.value
+            elseif v.type == "close" then
+               tabs[v.value] = nil
+               
+               if tab == v.value then
+                  tab = "HydraUI"
+               end
+
+               table.remove(tabOrder, v.value2)
+            end
+         end
+      end
+
+   drawTabs(event, val1, val2, val3)
+end
+
+-- Testing stuff
 windows[1]:addComponent(require("HydraUI.windowComponents.text").new("BASIC COMPONENTS EXIST NOW!!!", 14, 1, 1))
 windows[2]:addComponent(require("HydraUI.windowComponents.text").new("Clicker: ", 8, 1, 1))
 windows[2]:addComponent(require("HydraUI.windowComponents.button").new("000", 3, 10, 1, function(self)
