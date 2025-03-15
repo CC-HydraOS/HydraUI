@@ -1,6 +1,6 @@
 ---@class HydraUI.WindowComponentCreators.Window
 local lib = {}
----@class HydraUI.WindowComponents.Window: HydraUI.WindowComponent
+---@class HydraUI.WindowComponent.Window: HydraUI.WindowComponent
 ---@field children HydraUI.WindowComponent[]
 ---@field closed boolean
 ---@field title string
