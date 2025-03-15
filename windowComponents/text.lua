@@ -17,14 +17,15 @@ end
 
 function text.event() end
 
-function text.draw(self, palette, parentX, parentY)
+---@param screen HydraKernel.Screen
+function text.draw(self, screen, palette, parentX, parentY)
    local x, y = self.x, self.y - 1
    local width = self.width
 
    local split = splitIntoChunks(self.text, width)
    for k, v in pairs(split) do
-      term.setCursorPos(parentX + x, parentY + y + k)
-      term.blit(v, palette.text:rep(#v), palette.windowBackground:rep(#v))
+      screen:setCursorPos(parentX + x, parentY + y + k)
+      screen:blit(v, palette.text:rep(#v), palette.windowBackground:rep(#v))
    end
 end
 

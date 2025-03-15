@@ -10,8 +10,11 @@ local window = {}
 
 ---Draws the window component
 ---@param self HydraUI.WindowComponent
+---@param screen HydraKernel.Screen
 ---@param palette table
-function window.draw(self, palette)
+---@param parentX integer
+---@param parentY integer
+function window.draw(self, screen, palette, parentX, parentY)
 end
 
 ---Passes an event to the window
