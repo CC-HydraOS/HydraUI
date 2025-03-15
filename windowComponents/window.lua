@@ -14,7 +14,8 @@ function window.addComponent(self, component)
    self.children[#self.children + 1] = component
 end
 
-function window.draw(self, palette)
+---@param screen HydraKernel.Screen
+function window.draw(self, screen, palette)
    local width, height = self.width, self.height
    local x, y = self.x, self.y
    local title = self.title
@@ -24,19 +25,19 @@ function window.draw(self, palette)
 
    local titleStr = (" "):rep(math.floor(titleSpaceCount)) .. title .. (" "):rep(math.ceil(titleSpaceCount))
 
-   term.setCursorPos(x, y)
-   term.blit(titleStr, palette.text:rep(#titleStr), palette.windowTitleBackground:rep(#titleStr))
+   screen:setCursorPos(x, y)
+   screen:blit(titleStr, palette.text:rep(#titleStr), palette.windowTitleBackground:rep(#titleStr))
 
-   term.setCursorPos(x + width - 1, y)
-   term.blit("X", palette.text, palette.closeButton)
+   screen:setCursorPos(x + width - 1, y)
+   screen:blit("X", palette.text, palette.closeButton)
 
    for cy = y + 1, y + height - 1 do
-      term.setCursorPos(x, cy)
-      term.blit((" "):rep(width), palette.text:rep(width), palette.windowBackground:rep(width))
+      screen:setCursorPos(x, cy)
+      screen:blit((" "):rep(width), palette.text:rep(width), palette.windowBackground:rep(width))
    end
 
    for _, v in pairs(self.children) do
-      v:draw(palette, self.x, self.y + 1)
+      v:draw(screen, palette, self.x, self.y + 1)
    end
 end
 

@@ -14,14 +14,15 @@ local function splitIntoChunks(txt, size)
    return split
 end
 
-function button.draw(self, palette, parentX, parentY)
+---@param screen HydraKernel.Screen
+function button.draw(self, screen, palette, parentX, parentY)
    local x, y = self.x, self.y - 1
    local width = self.width
 
    local split = splitIntoChunks(self.text, width)
    for k, v in pairs(split) do
-      term.setCursorPos(parentX + x, parentY + y + k)
-      term.blit(v, palette.text:rep(#v), palette.buttonBackground:rep(#v))
+      screen:setCursorPos(parentX + x, parentY + y + k)
+      screen:blit(v, palette.text:rep(#v), palette.buttonBackground:rep(#v))
    end
 end
 

@@ -1,5 +1,7 @@
 ---@diagnostic disable undefined-global
 
+local term = kernel.screen.get(0)
+
 ---@class HydraUI
 ui = {}
 
@@ -11,12 +13,12 @@ end
 
 local palette = require("palette")
 
-local width, height = term.getSize()
+local width, height = term:getSize()
 
 local function clearTerminal()
    for y = 1, height do
-      term.setCursorPos(1, y)
-      term.blit((" "):rep(width), palette.text:rep(width), palette.background:rep(width))
+      term:setCursorPos(1, y)
+      term:blit((" "):rep(width), palette.text:rep(width), palette.background:rep(width))
    end
 end
 
@@ -37,7 +39,7 @@ local function draw()
    clearTerminal()
 
    for k, v in pairs(windows) do
-      v:draw(palette)
+      v:draw(term, palette)
    end
 end
 
