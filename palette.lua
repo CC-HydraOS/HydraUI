@@ -1,4 +1,4 @@
-return multishell and {
+return kernel.screen.get(0) and {
    background = "3",
    text = "f",
    windowBackground = "0",

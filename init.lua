@@ -5,13 +5,7 @@ local term = kernel.screen.get(0)
 ---@class HydraUI
 ui = {}
 
-local _require = require
-local container = ...
-local function require(modname)
-   return _require(container .. "." .. modname)
-end
-
-local palette = require("palette")
+local palette = require("HydraUI.palette")
 
 local width, height = term:getSize()
 
@@ -23,8 +17,8 @@ local function clearTerminal()
 end
 
 local windows = {
-   require("windowComponents.window").new("Test Window", 16, 6, 5, 5),
-   require("windowComponents.window").new("Test Window 2", 14, 8, 24, 5)
+   require("HydraUI.windowComponents.window").new("Test Window", 16, 6, 5, 5),
+   require("HydraUI.windowComponents.window").new("Test Window 2", 14, 8, 24, 5)
 }
 local tabs = {
    ["HydraUI"] = {
@@ -112,9 +106,9 @@ local function drawTabs(event, button, x, y)
 end
 
 -- Testing stuff
-windows[1]:addComponent(require("windowComponents.text").new("BASIC COMPONENTS EXIST NOW!!!", 14, 1, 1))
-windows[2]:addComponent(require("windowComponents.text").new("Clicker: ", 8, 1, 1))
-windows[2]:addComponent(require("windowComponents.button").new("000", 3, 10, 1, function(self)
+windows[1]:addComponent(require("HydraUI.windowComponents.text").new("BASIC COMPONENTS EXIST NOW!!!", 14, 1, 1))
+windows[2]:addComponent(require("HydraUI.windowComponents.text").new("Clicker: ", 8, 1, 1))
+windows[2]:addComponent(require("HydraUI.windowComponents.button").new("000", 3, 10, 1, function(self)
    self.text = string.format("%03i", tonumber(self.text) + 1)
 end))
 
@@ -148,9 +142,7 @@ ui.addTab("Events", {
 
 draw()
 drawTabs()
-while true do
-   local event, val1, val2, val3, val4, val5 = os.pullEvent()
-
+kernel.events.register(function(event, val1, val2, val3, val4, val5)
    if tab == "HydraUI" then
       for k, v in pairs(windows) do
          local change = v:event(event, val1, val2, val3, val4, val5)
@@ -166,8 +158,8 @@ while true do
       tabs[tab]:draw()
    end
 
-   if #tabs > 0 then
-      drawTabs(event, val1, val2, val3)
-   end
-end
+   drawTabs(event, val1, val2, val3)
+end)
+
+return ui
 
