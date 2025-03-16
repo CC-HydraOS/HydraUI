@@ -17,8 +17,7 @@ local function clearTerminal()
 end
 
 local windows = {
-   require("HydraUI.windowComponents.window").new("Test Window", 16, 6, 5, 5),
-   require("HydraUI.windowComponents.window").new("Test Window 2", 14, 8, 24, 5)
+   require("HydraUI.windowComponents.window").new("Launcher", 12, 16, 5, 5),
 }
 local tabs = {
    ["HydraUI"] = {
@@ -105,13 +104,11 @@ local function drawTabs(event, button, x, y)
    end
 end
 
--- Testing stuff
-windows[1]:addComponent(require("HydraUI.windowComponents.text").new("BASIC COMPONENTS EXIST NOW!!!", 14, 1, 1))
-windows[2]:addComponent(require("HydraUI.windowComponents.text").new("Clicker: ", 8, 1, 1))
-windows[2]:addComponent(require("HydraUI.windowComponents.button").new("000", 3, 10, 1, function(self)
-   self.text = string.format("%03i", tonumber(self.text) + 1)
+windows[1]:addComponent(require("HydraUI.windowComponents.button").new("Calculator", 10, 2, 2, function()
+   dofile("/bin/calculator.lua")
 end))
 
+-- Testing stuff
 local prevEvents = {}
 ui.addTab("Events", {
    draw = function()
