@@ -3,7 +3,7 @@
 local term = kernel.screen.get(0)
 
 ---@class HydraUI
-ui = {}
+_G.ui = {}
 
 local palette = require("HydraUI.palette")
 
@@ -17,7 +17,7 @@ local function clearTerminal()
 end
 
 local windows = {
-   require("HydraUI.windowComponents.window").new("Launcher", 12, 16, 5, 5),
+   require("HydraUI.windowComponents.window").new("Launcher", 12, 16, 2, 2),
 }
 local tabs = {
    ["HydraUI"] = {
@@ -104,7 +104,7 @@ local function drawTabs(event, button, x, y)
    end
 end
 
-windows[1]:addComponent(require("HydraUI.windowComponents.button").new("Calculator", 10, 2, 2, function()
+windows[1]:addComponent(require("HydraUI.windowComponents.button").new("Calculator", 10, 1, 1, function()
    dofile("/bin/calculator.lua")
 end))
 
