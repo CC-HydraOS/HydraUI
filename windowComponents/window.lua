@@ -64,6 +64,7 @@ function window.event(self, event, ...)
    elseif event == "mouse_drag" and self.dragging then
       self.x = eventData[2] + self._dragOffsetX
       self.y = eventData[3] + self._dragOffsetY
+      return "FINISH"
    elseif event == "mouse_up" and eventData[1] == 1 then
       self.dragging = false
    end
