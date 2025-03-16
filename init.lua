@@ -107,6 +107,9 @@ end
 windows[1]:addComponent(require("HydraUI.windowComponents.button").new("Calculator", 10, 1, 1, function()
    dofile("/bin/calculator.lua")
 end))
+windows[1]:addComponent(require("HydraUI.windowComponents.button").new("Calculator", 10, 1, 1, function()
+   dofile("/bin/music.lua")
+end))
 
 -- Testing stuff
 local prevEvents = {}
