@@ -12,6 +12,7 @@ local width, height = term:getSize()
 
 local function clearTerminal()
    for y = 1, height do
+      term:setCursorBlinking(false)
       term:setCursorPos(1, y)
       term:blit((" "):rep(width), palette.text:rep(width), palette.background:rep(width))
    end
