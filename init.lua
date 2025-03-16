@@ -17,7 +17,7 @@ local function clearTerminal()
 end
 
 local windows = {
-   require("HydraUI.windowComponents.window").new("Launcher", 12, 16, 2, 2),
+   require("HydraUI.windowComponents.window").new("Launcher", 12, 16, 2, 3),
 }
 local tabs = {
    ["HydraUI"] = {
