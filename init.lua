@@ -1,6 +1,7 @@
 ---@diagnostic disable undefined-global
 
 local term = kernel.screen.get(0)
+term:setCursorBlinking(false)
 
 ---@class HydraUI
 _G.ui = {}
