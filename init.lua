@@ -111,10 +111,10 @@ ui.addTab("Events", {
       term:setBackgroundColor(0x8000)
       term:setTextColor(0x1)
       term:clear()
+      term:setCursorPos(1, 2)
       for i, v in ipairs(prevEvents) do
-         term:setCursorPos(1, 1 + i)
          local str = table.concat(v, " ")
-         term:write(str, true)
+         print(str)
       end
    end,
    event = function(self, ...)
@@ -135,7 +135,8 @@ ui.addTab("Events", {
 
 draw()
 drawTabs()
-kernel.events.register(function(event, val1, val2, val3, val4, val5)
+while true do
+   local event, val1, val2, val3, val4, val5 = kernel.events.awaitEvent()
    if tab == "HydraUI" then
       for k, v in pairs(windows) do
          local change = v:event(event, val1, val2, val3, val4, val5)
@@ -155,7 +156,7 @@ kernel.events.register(function(event, val1, val2, val3, val4, val5)
    end
 
    drawTabs(event, val1, val2, val3)
-end)
+end
 
 return ui
 
