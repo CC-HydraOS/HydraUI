@@ -18,9 +18,7 @@ local function clearTerminal()
    end
 end
 
-local windows = {
-   require("HydraUI.windowComponents.window").new("Launcher", 12, 16, 2, 3),
-}
+local windows = {}
 local tabs = {
    ["HydraUI"] = {
       draw = function() end,
@@ -106,13 +104,6 @@ local function drawTabs(event, button, x, y)
    end
 end
 
-windows[1]:addComponent(require("HydraUI.windowComponents.button").new("Calculator", 10, 1, 1, function()
-   dofile("/bin/calculator.lua")
-end))
-windows[1]:addComponent(require("HydraUI.windowComponents.button").new(" HyPlayer ", 10, 1, 3, function()
-   dofile("/bin/hyplayer.lua")
-end))
-
 -- Testing stuff
 local prevEvents = {}
 ui.addTab("Events", {
@@ -151,9 +142,12 @@ kernel.events.register(function(event, val1, val2, val3, val4, val5)
 
          if change == "DELETE" then
             windows[k] = nil
+         elseif change == "FINISH" then
+            goto tabs
          end
       end
    
+      ::tabs::
       draw()
    elseif tabs[tab] then
       tabs[tab]:event(event, val1, val2, val3, val4, val5)
