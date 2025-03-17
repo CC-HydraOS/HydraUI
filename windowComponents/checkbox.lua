@@ -14,7 +14,7 @@ function checkbox.draw(self, screen, palette, parentX, parentY)
 
    screen:setCursorPos(parentX + x, parentY + y)
    if self.active then
-      screen:blit("X", palette.text, palette.checkboxActivated)
+      screen:blit("x", palette.text, palette.checkboxActivated)
    else
       screen:blit(" ", palette.text, palette.buttonBackground)
    end

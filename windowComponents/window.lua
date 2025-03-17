@@ -69,8 +69,17 @@ function window.event(self, event, ...)
       self.dragging = false
    end
 
-   for _, v in pairs(self.children) do
-      v:event(event, ...)
+   local delete =  {}
+   for k, v in pairs(self.children) do
+      local data = v:event(event, ...)
+
+      if data == "DELETE" then
+         delete[k] = true
+      end
+   end
+
+   for k in pairs(delete) do
+      self.children[k] = nil
    end
 end
 

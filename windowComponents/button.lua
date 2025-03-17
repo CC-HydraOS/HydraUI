@@ -40,7 +40,7 @@ function button.event(self, event, ...)
    local eventData = {...}
 
    if event == "mouse_click" and eventData[1] == 1 and positionInButtonBounds(self, eventData[2], eventData[3]) then
-      self.func(self)
+      return self.func(self)
    end
 end
 
@@ -49,7 +49,7 @@ end
 ---@param width integer
 ---@param x integer
 ---@param y integer
----@param func fun(self: HydraUI.WindowComponent.Button)
+---@param func fun(self: HydraUI.WindowComponent.Button): string?
 ---@return HydraUI.WindowComponent.Button
 function lib.new(txt, width, x, y, func)
    local new = setmetatable({text = txt, width = width, x = x or 5, y = y or 5, func = func}, {
